@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="col-xs-10">
+        <app-text-filed 
+            (updateFiledValue) = "updateName($event)" 
+            title="Username" 
+            inputType = "text"
+            placeholder="Enter your username"
+        ></app-text-filed>
+        <app-text-filed 
+            (updateFiledValue) = "updatePassword($event)" 
+            title="Password" 
+            inputType = "password"
+            placeholder="Enter your passwords"
+        ></app-text-filed>
+        
+        <h2>{{ username }}</h2>
+        <h2>{{ password }}</h2>
+
+        <app-button title="Login"></app-button>
+    </div>
+</div>

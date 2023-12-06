@@ -1,0 +1,13 @@
+<div class="form-group">
+    <label for="exampleInputEmail1">{{ title }}</label>
+    <input 
+    type="{{inputType}}" 
+    class="form-control" 
+    type="text" 
+    #getTextValue
+    required
+    (input) = "updateName()" 
+    [(ngModel)] = "textInput" 
+    placeholder="{{placeholder}}"
+    >
+</div>
