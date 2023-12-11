@@ -1,2 +1,24 @@
+<h1>Patients List</h1>
 
-<app-patient-item *ngFor= "let x of [1,2,3,4,56]"></app-patient-item>
+<table class="patient-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Birthday</th>
+      <th>Gender</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let patient of patients">
+      <td>{{ patient.name }}</td>
+      <td>{{ patient.age }}</td>
+      <td>{{ patient.birthday }}</td>
+      <td>{{ patient.gender }}</td>
+      <td><button (click)="editPatient(patient)">Edit</button></td>
+      <td><button (click)="deletePatient(patient)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>

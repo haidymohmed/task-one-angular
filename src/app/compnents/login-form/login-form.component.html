@@ -1,21 +1,34 @@
 <div class="container">
     <div class="col-xs-10">
-        <app-text-filed 
-            (updateFiledValue) = "updateName($event)" 
-            title="Username" 
-            inputType = "text"
-            placeholder="Enter your username"
-        ></app-text-filed>
-        <app-text-filed 
-            (updateFiledValue) = "updatePassword($event)" 
-            title="Password" 
-            inputType = "password"
-            placeholder="Enter your passwords"
-        ></app-text-filed>
-        
-        <h2>{{ username }}</h2>
-        <h2>{{ password }}</h2>
-
-        <app-button title="Login"></app-button>
+        <form (ngSubmit)="login(f)" #f="ngForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                    type="text"
+                    id="name"
+                    class="form-control"
+                    name="name"
+                    ngModel
+                    required
+                    #email = "ngModel"
+                >
+                <span class="help-block" *ngIf ="!email.valid && email.touched">please enter a vild username</span>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    name="password"
+                    ngModel
+                    required
+                    #password = "ngModel"
+                >
+                <span class="help-block" *ngIf ="!password.valid && password.touched">please enter a vild password</span>
+            </div>
+           
+            <button type="submit" [disabled]="!f.valid" class="btn btn-primary">Login</button>
+        </form>
     </div>
 </div>

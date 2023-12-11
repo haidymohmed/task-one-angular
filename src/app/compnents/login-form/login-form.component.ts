@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login-form',
@@ -8,15 +9,13 @@ import { Component, OnInit } from '@angular/core';
 
 export class LoginFormComponent implements OnInit {
 
-  username : string  = '';
-  password : string = '';
   constructor() { }
 
-  updateName(event : any){
-    this.username = event;
-  }
-  updatePassword(event : any){
-    this.username = event;    
+
+  login(form : NgForm){
+    console.log(form.value.name);
+    console.log(form.value.password);
+    
   }
   ngOnInit(): void {
   }

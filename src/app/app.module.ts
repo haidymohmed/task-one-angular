@@ -7,13 +7,16 @@ import { TextFiledComponent } from './compnents/text-filed/text-filed.component'
 import { LoginFormComponent } from './compnents/login-form/login-form.component';
 import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from './compnents/button/button.component';
-import { PopupModule } from '@progress/kendo-angular-popup';
-import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { PatientListComponent } from './compnents/patients/patient-list/patient-list.component';
 import { AddNewPatientComponent } from './compnents/patients/add-new-patient/add-new-patient.component';
 import { PatientsComponent } from './compnents/patients/patients/patients.component';
 import { PatientItemComponent } from './compnents/patients/patient-item/patient-item.component';
-
+import { RouterModule, Routes } from '@angular/router';
+const routes: Routes = [
+  { path: 'login', component: LoginFormComponent },
+  //{ path: 'patients', component: PatientsComponent },
+  { path: 'patients/:id:', component: PatientsComponent },
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +24,7 @@ import { PatientItemComponent } from './compnents/patients/patient-item/patient-
     LoginFormComponent,
     ButtonComponent,
     PatientListComponent,
+    PatientItemComponent,
     AddNewPatientComponent,
     PatientItemComponent,
     PatientsComponent,
@@ -31,8 +35,7 @@ import { PatientItemComponent } from './compnents/patients/patient-item/patient-
     BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
-    ButtonsModule,
-    PopupModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]

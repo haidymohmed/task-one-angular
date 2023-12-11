@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PatientModel } from 'src/app/models/patient.model';
 
 @Component({
   selector: 'app-patient-list',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./patient-list.component.css']
 })
 export class PatientListComponent implements OnInit {
-
+  
   constructor() { }
 
   ngOnInit(): void {
