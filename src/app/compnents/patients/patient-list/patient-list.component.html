@@ -1,1 +1,23 @@
-<p>patient-list works!</p>
+<table class="patient-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Birthday</th>
+        <th>Gender</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let patient of patients ; index as index">
+        <td>{{ patient.name }}</td>
+        <td>{{ patient.age }}</td>
+        <td>{{ patient.birthday }}</td>
+        <td>{{ mapGender(patient.gender) }}</td>
+        <td>
+            <button (click)="editPatient(patient)" class="btn btn-primary my-2 mr-sm-2" type="submit" routerLink="../editPatient/{{index}}">Edit</button>
+            <button (click)="deletePatient(index)"  class="btn btn-danger my-2 mr-sm-2" type="submit">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>

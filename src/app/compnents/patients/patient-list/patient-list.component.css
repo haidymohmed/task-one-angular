@@ -1,0 +1,17 @@
+.patient-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .patient-table th,
+  .patient-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .patient-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+    color: #333;
+  }
+  

@@ -1,19 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientModel } from 'src/app/models/patient.model';
+import { PatientsRepositoryImp } from 'src/app/repositories/patient.repository';
+import { GenderRepositoryImp } from 'src/app/repositories/genger.repository';
 
 @Component({
   selector: 'app-patients',
   templateUrl: './patients.component.html',
-  styleUrls: ['./patients.component.css']
+  styleUrls: ['./patients.component.css'],
 })
+
+
 export class PatientsComponent implements OnInit {
+  public patients: PatientModel[] = [];
 
-  public patients: PatientModel[] = [
-    new PatientModel('haisy' , 9 , '1993-05-15' , 'Male'),
-    new PatientModel('haisy' , 9 , '1993-05-15' , 'Male'),
-    new PatientModel('haisy' , 9 , '1993-05-15' , 'Male'),
-  ];
-
+  constructor(private patientsRepository : PatientsRepositoryImp , private genderRepositoryImp : GenderRepositoryImp){ 
+    this.patients = patientsRepository.getAllPatients();
+    this.patientsRepository.patientChanged.subscribe((changedPatients) => {
+      this.patients = changedPatients;
+    });
+   }
   editPatient(patient: PatientModel) {
     // Logic for editing a patient goes here
   }
@@ -24,7 +29,6 @@ export class PatientsComponent implements OnInit {
       this.patients.splice(index, 1);
     }
   }
-  constructor() { }
 
   ngOnInit(): void {
   }

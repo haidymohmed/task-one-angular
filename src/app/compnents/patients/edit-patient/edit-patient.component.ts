@@ -1,31 +1,37 @@
-import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GenderModel } from 'src/app/models/gender.model';
 import { PatientModel } from 'src/app/models/patient.model';
 import { GenderRepositoryImp } from 'src/app/repositories/genger.repository';
 import { PatientsRepositoryImp } from 'src/app/repositories/patient.repository';
 
 @Component({
-  selector: 'app-add-new-patient',
-  templateUrl: './add-new-patient.component.html',
-  styleUrls: ['./add-new-patient.component.css'],
+  selector: 'app-edit-patient',
+  templateUrl: './edit-patient.component.html',
+  styleUrls: ['./edit-patient.component.css']
 })
-export class AddNewPatientComponent implements OnInit {
+export class EditPatientComponent implements OnInit {
 
+  index : number = 0;
   patient : PatientModel = new PatientModel('',0,'',1);
   genders : GenderModel[] = [];
-  constructor(private genderRepository : GenderRepositoryImp , private patientRepository : PatientsRepositoryImp , private router : Router) { 
-    this.genders = genderRepository.getGenders();
+  constructor(private genderRepository : GenderRepositoryImp , 
+    private patientRepository : PatientsRepositoryImp , 
+    private router : Router ,private activatedRoute : ActivatedRoute) { 
+      this.index = this.activatedRoute.snapshot.params['id'] ;
+      this.patient = patientRepository.getPatientById(this.index);
+      console.log(this.patient);
+      
+      this.genders = genderRepository.getGenders();
   }
 
-  addPatient(form : NgForm){
+  editPatient(form : NgForm){
     this.patient.name = form.value.name ;
     this.patient.age = this.calculateDiff(form.value.birthday);
     this.patient.birthday = form.value.birthday ;
     console.log(this.patient);
-    this.patientRepository.addPatient(this.patient);
+    this.patientRepository.editPatient(this.patient , this.index);
     this.router.navigate(['../patients'])
   }
   onDateChange(form : NgForm){
@@ -41,5 +47,6 @@ export class AddNewPatientComponent implements OnInit {
   }
   ngOnInit(): void {
   }
+
 
 }

@@ -1,30 +1,11 @@
-.patient-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .patient-table th,
-  .patient-table td {
-    padding: 8px;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .patient-table th {
-    background-color: #f2f2f2;
-    text-align: left;
-    color: #333;
-  }
-  
-  .patient-table td button {
-    background-color: #007bff;
-    border: none;
-    color: #fff;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .patient-table td button:hover {
-    background-color: #0056b3;
-    border-radius: 5px;
-  }
+.column {
+  float: left;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}

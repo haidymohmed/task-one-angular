@@ -1,24 +1,12 @@
-<h1>Patients List</h1>
-
-<table class="patient-table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Age</th>
-      <th>Birthday</th>
-      <th>Gender</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let patient of patients">
-      <td>{{ patient.name }}</td>
-      <td>{{ patient.age }}</td>
-      <td>{{ patient.birthday }}</td>
-      <td>{{ patient.gender }}</td>
-      <td><button (click)="editPatient(patient)">Edit</button></td>
-      <td><button (click)="deletePatient(patient)">Delete</button></td>
-    </tr>
-  </tbody>
-</table>
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <div class="container">
+    <a class="navbar-brand">Patient List</a>
+    <div class="form-inline">
+      <button class="btn btn-primary my-2 mr-sm-2" type="submit" routerLink="../addPatient">Add new patient</button>
+      <button class="btn btn-danger my-2 mr-sm-2" type="submit" routerLink="../login">LogOut</button>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <app-patient-list></app-patient-list>
+</div>

@@ -1,6 +1,6 @@
 <div class="container">
     <div class="col-xs-10">
-        <form (ngSubmit)="addPatient(f)" #f="ngForm">
+        <form (ngSubmit)="editPatient(f)" #f="ngForm">
             <div class="form-name">
                 <label for="name">Patient name</label>
                 <input
@@ -8,9 +8,10 @@
                     id="name"
                     class="form-control"
                     name="name"
-                    value="patient.name"
+                    init ="WSwa"
+                    value="{{patient.name}}"
                     placeholder="Enter patient name"
-                    ngModel
+                    [(ngModel)] = "patient.name"
                     required
                     #name = "ngModel"
                 >
@@ -23,8 +24,8 @@
                     id="age"
                     class="form-control"
                     name="age"
-                    value="patient.age"
-                    ngModel
+                    value="{{patient.age}}"
+                    [(ngModel)] = "patient.age"
                     disabled
                     placeholder="Age is auto set by birthday"
                     required
@@ -40,8 +41,8 @@
                     id="birthday"
                     class="form-control"
                     name="birthday"
-                    value="patient.birthday"
-                    ngModel
+                    value="{{patient.birthday}}"
+                    [(ngModel)] = "patient.birthday"
                     required
                     (change)="onDateChange(f)"
                     #birthday = "ngModel"
@@ -52,7 +53,7 @@
                 <option *ngFor="let gender of genders" [value]="gender.value" >{{gender.type}}</option>
             </select> 
             
-            <button class="btn btn-primary my-2 mr-sm-2" type="submit" routerLink="../addPatient" [disabled]="!f.valid">Add patient</button>
+            <button class="btn btn-primary my-2 mr-sm-2" type="submit" routerLink="../addPatient" [disabled]="!f.valid">Edit patient</button>
         </form>
     </div>
 </div>
