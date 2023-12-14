@@ -1,18 +1,23 @@
 import { EventEmitter, Inject, Injectable } from "@angular/core";
+import { HttpClient } from '@angular/common/http';
 import { PatientModel } from "../models/patient.model";
+import {Observable} from 'rxjs'
 
 @Injectable()
 export class PatientsRepositoryImp {
     patientChanged = new EventEmitter<PatientModel[]>() ;
-    private patients : PatientModel[] = [
-        new PatientModel("haidy" , 23 , '2001-05-28',2)
-    ];
-
-    getAllPatients(){
-        console.log(this.patients);
+    private patients : PatientModel[] = [];
+    constructor(private http : HttpClient) { }
+    /*
+    this.http.get('http://localhost:5251/api/Patients')
+    
+    */
+    getAllPatients() :  Observable<any>{
+        console.log("TEST");
+        console.log(this.http.get('http://localhost:5251/api/Patients'));
         
-        return this.patients.slice();
-    }
+        return this.http.get('http://localhost:5251/api/Patients');
+      }
     getPatientById(index : number){
         return this.patients[index];
     }

@@ -14,10 +14,24 @@ export class PatientsComponent implements OnInit {
   public patients: PatientModel[] = [];
 
   constructor(private patientsRepository : PatientsRepositoryImp , private genderRepositoryImp : GenderRepositoryImp){ 
-    this.patients = patientsRepository.getAllPatients();
+    console.log(patientsRepository.getAllPatients());
+    /*
+    patientsRepository.getAllPatients().subscribe(
+      res =>{
+          console.log(res);
+          this.patients = res ;
+      },
+      err =>{
+       console.log(err);   
+      }
+    );
     this.patientsRepository.patientChanged.subscribe((changedPatients) => {
+      console.log(changedPatients);
+      
       this.patients = changedPatients;
     });
+
+  */
    }
   editPatient(patient: PatientModel) {
     // Logic for editing a patient goes here

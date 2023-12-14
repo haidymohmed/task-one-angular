@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { TextFiledComponent } from './compnents/text-filed/text-filed.component';
 import { LoginFormComponent } from './compnents/login-form/login-form.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { ButtonComponent } from './compnents/button/button.component';
 import { PatientListComponent } from './compnents/patients/patient-list/patient-list.component';
 import { AddNewPatientComponent } from './compnents/patients/add-new-patient/add-new-patient.component';
@@ -38,12 +39,14 @@ const routes: Routes = [
     BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
+    HttpClientModule,
     RouterModule.forRoot(routes)
   ],
   providers: [
     PatientsRepositoryImp,
     LoginRepositoryImp,
-    GenderRepositoryImp
+    GenderRepositoryImp,
+  
   ],
   bootstrap: [AppComponent]
 })

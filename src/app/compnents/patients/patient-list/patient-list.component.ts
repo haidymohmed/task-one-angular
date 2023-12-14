@@ -15,7 +15,13 @@ export class PatientListComponent implements OnInit  , OnChanges{
 
   constructor(private patientsRepository : PatientsRepositoryImp , private genderRepository : GenderRepositoryImp){ 
     console.log("Changed constructor");
-    this.patients = patientsRepository.getAllPatients();
+    patientsRepository.getAllPatients().subscribe(res=>{
+      for(let item of res){
+        this.patients.push(new PatientModel(item['name'],item['age'],item['birthDate'],item['gender']));
+      }
+    }, err=>{
+
+    });
     this.genders = genderRepository.getGenders();
   }
   ngOnChanges(changes: SimpleChanges): void {this.patientsRepository.patientChanged.subscribe((changed) => {

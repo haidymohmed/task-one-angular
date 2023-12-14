@@ -18,7 +18,7 @@ export class AppComponent implements OnInit{
 
   }
   ngOnInit(): void {
-    this.router.navigate(['login']);
+    this.router.navigate(['patients']);
   }
   title = 'task-one';
 }
