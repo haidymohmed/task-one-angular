@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,13 +15,27 @@ import { PatientsRepositoryImp } from 'src/app/repositories/patient.repository';
 export class EditPatientComponent implements OnInit {
 
   index : number = 0;
-  patient : PatientModel = new PatientModel('',0,'',1);
+  patient : PatientModel = new PatientModel(1,'',0,'',1);
   genders : GenderModel[] = [];
   constructor(private genderRepository : GenderRepositoryImp , 
-    private patientRepository : PatientsRepositoryImp , 
+    private patientRepository : PatientsRepositoryImp ,
+    private datePipe : DatePipe,
     private router : Router ,private activatedRoute : ActivatedRoute) { 
       this.index = this.activatedRoute.snapshot.params['id'] ;
-      this.patient = patientRepository.getPatientById(this.index);
+      console.log(this.index);
+      patientRepository.getPatientById(this.index).subscribe(
+        res=>{
+          let body = JSON.parse(JSON.stringify(res))['data'];
+          this.patient = new PatientModel(
+            body['id'],
+            body['name'],
+            body['age'],
+            this.datePipe.transform(new Date(body['birthDate']), 'yyyy-MM-dd') ?? '',
+            body['gender'],
+          )
+        }
+      );
+      
       console.log(this.patient);
       
       this.genders = genderRepository.getGenders();
@@ -31,8 +46,17 @@ export class EditPatientComponent implements OnInit {
     this.patient.age = this.calculateDiff(form.value.birthday);
     this.patient.birthday = form.value.birthday ;
     console.log(this.patient);
-    this.patientRepository.editPatient(this.patient , this.index);
-    this.router.navigate(['../patients'])
+    this.patient.birthday =  new Date(this.patient.birthday).toISOString();
+     this.patientRepository.editPatient(this.patient , this.index).subscribe(
+      res =>{
+        alert("Patient added successfully");
+        this.router.navigate(['../patients']);
+      },
+      err =>{
+        alert(err);
+      }
+    );
+    this.patientRepository.patientChanged.emit();
   }
   onDateChange(form : NgForm){
     this.patient.age = this.calculateDiff(form.value.birthday);

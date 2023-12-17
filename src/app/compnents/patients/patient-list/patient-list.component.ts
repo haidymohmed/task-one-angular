@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { GenderModel } from 'src/app/models/gender.model';
 import { PatientModel } from 'src/app/models/patient.model';
@@ -9,26 +10,17 @@ import { PatientsRepositoryImp } from 'src/app/repositories/patient.repository';
   templateUrl: './patient-list.component.html',
   styleUrls: ['./patient-list.component.css']
 })
-export class PatientListComponent implements OnInit  , OnChanges{
+export class PatientListComponent implements OnInit {
   public patients: PatientModel[] = [];
   public genders: GenderModel[] = [];
 
-  constructor(private patientsRepository : PatientsRepositoryImp , private genderRepository : GenderRepositoryImp){ 
-    console.log("Changed constructor");
+  constructor(private patientsRepository : PatientsRepositoryImp , private datePipe : DatePipe ,private genderRepository : GenderRepositoryImp){ 
     patientsRepository.getAllPatients().subscribe(res=>{
-      for(let item of res){
-        this.patients.push(new PatientModel(item['name'],item['age'],item['birthDate'],item['gender']));
-      }
+      this.mapRes(res);
     }, err=>{
-
+      alert("An error occured");
     });
     this.genders = genderRepository.getGenders();
-  }
-  ngOnChanges(changes: SimpleChanges): void {this.patientsRepository.patientChanged.subscribe((changed) => {
-      console.log("ngOnChanges");
-      
-      this.patients = changed;
-    });
   }
   
   mapGender(value : number){
@@ -39,22 +31,36 @@ export class PatientListComponent implements OnInit  , OnChanges{
     }
     return '';
   }
-  editPatient(patient: PatientModel) {
-    // Logic for editing a patient goes here
-  }
 
   deletePatient(index: number) {
-    this.patientsRepository.deletePatient(index);
-    this.patientsRepository.patientChanged.emit(this.patients);
+    this.patientsRepository.deletePatient(index).subscribe(
+      res =>{
+        console.log(res);
+        alert("Patient deleted successfully");
+      },
+      err =>{
+        alert("An error occured");
+      }
+    );
+    this.patientsRepository.patientChanged.emit();
   }
 
   ngOnInit(): void {
-    this.patientsRepository.patientChanged.subscribe((changed) => {
-      console.log("Changed ngOnInit");
-      
-      this.patients = changed;
+    this.patientsRepository.patientChanged.subscribe((changed) => {   
+      this.patientsRepository.getAllPatients().subscribe(
+        res =>{
+          this.mapRes(res);
+        },
+        err =>{
+          alert("An error occured");
+        }
+      );
     });
   }
-
-
+  mapRes(res : any){
+    this.patients = [];
+    for(let item of res){
+      this.patients.push(new PatientModel(item["id"],item['name'],item['age'],this.datePipe.transform(new Date(item['birthDate']), 'yyyy-MM-dd') ?? '',item['gender']));
+    }
+  }
 }
